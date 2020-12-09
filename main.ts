@@ -72,9 +72,9 @@ basic.forever(function () {
     moveogre(Ogre3)
     if (Adventr.isTouching(TreasureBox)) {
         game.addScore(Treasure)
-        music.ringTone(131)
-        music.ringTone(262)
-        music.ringTone(523)
+        music.playTone(131, music.beat(BeatFraction.Whole))
+        music.playTone(262, music.beat(BeatFraction.Whole))
+        music.playTone(523, music.beat(BeatFraction.Whole))
         Treasure = 0
         game.addLife(1)
     }
