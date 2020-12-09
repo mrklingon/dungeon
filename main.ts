@@ -54,7 +54,6 @@ Adventr = game.createSprite(2, 2)
 game.setLife(5)
 RoomX = 1
 RoomY = 1
-music.startMelody(music.builtInMelody(Melodies.Prelude), MelodyOptions.Once)
 Gold = [0, 1, 0, 0, 0, 0, 0, 0, 0]
 for (let index = 0; index <= 8; index++) {
     Gold[index] = randint(100, 500)
