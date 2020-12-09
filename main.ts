@@ -4,16 +4,13 @@ function RoomDex (X: number, Y: number) {
 function moveogre (sprite: game.LedSprite) {
     sprite.move(1)
     sprite.ifOnEdgeBounce()
-    basic.pause(100)
+    basic.pause(500)
     if (Adventr.isTouching(sprite)) {
         game.removeLife(1)
     }
 }
 input.onButtonPressed(Button.A, function () {
-    Adventr.change(LedSpriteProperty.Y, -1)
-})
-input.onGesture(Gesture.TiltLeft, function () {
-    Adventr.change(LedSpriteProperty.X, -1)
+    Adventr.move(1)
 })
 function placeOgre (sprite: game.LedSprite) {
     sprite.set(LedSpriteProperty.X, randint(0, 4))
@@ -21,6 +18,8 @@ function placeOgre (sprite: game.LedSprite) {
     sprite.turn(Direction.Right, randint(0, 359))
 }
 function NewRoom (X: number, Y: number) {
+    Adventr.set(LedSpriteProperty.Direction, 0)
+    music.playTone(262, music.beat(BeatFraction.Whole))
     basic.showIcon(IconNames.Heart)
     basic.showIcon(IconNames.SmallHeart)
     basic.showIcon(IconNames.Heart)
@@ -34,14 +33,11 @@ function NewRoom (X: number, Y: number) {
     Gold[RoomDex(X, Y)] = 0
 }
 input.onButtonPressed(Button.B, function () {
-    Adventr.change(LedSpriteProperty.Y, 1)
-})
-input.onGesture(Gesture.TiltRight, function () {
-    Adventr.change(LedSpriteProperty.X, 1)
+    Adventr.turn(Direction.Right, 45)
 })
 function SetTreasure (sprite: game.LedSprite) {
-    sprite.set(LedSpriteProperty.X, randint(0, 4))
-    sprite.set(LedSpriteProperty.Y, randint(0, 4))
+    sprite.set(LedSpriteProperty.X, randint(1, 3))
+    sprite.set(LedSpriteProperty.Y, randint(1, 3))
 }
 let Treasure = 0
 let Gold: number[] = []
@@ -60,10 +56,11 @@ Adventr = game.createSprite(2, 2)
 game.setLife(5)
 RoomX = 1
 RoomY = 1
+music.startMelody(music.builtInMelody(Melodies.Prelude), MelodyOptions.Once)
 Gold = [0, 1, 0, 0, 0, 0, 0, 0, 0]
 let Ogres = [0, 1, 0, 0, 0, 0, 0, 0, 0]
 for (let index = 0; index <= 8; index++) {
-    Gold[index] = randint(0, 5)
+    Gold[index] = randint(100, 500)
 }
 for (let index = 0; index <= 8; index++) {
     Ogres[index] = randint(0, 3)
@@ -75,6 +72,9 @@ basic.forever(function () {
     moveogre(Ogre3)
     if (Adventr.isTouching(TreasureBox)) {
         game.addScore(Treasure)
+        music.ringTone(131)
+        music.ringTone(262)
+        music.ringTone(523)
         Treasure = 0
         game.addLife(1)
     }
