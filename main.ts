@@ -21,8 +21,6 @@ function NewRoom (X: number, Y: number) {
     Adventr.set(LedSpriteProperty.Direction, 0)
     music.playTone(262, music.beat(BeatFraction.Whole))
     basic.showIcon(IconNames.Heart)
-    basic.showIcon(IconNames.SmallHeart)
-    basic.showIcon(IconNames.Heart)
     RoomX = X
     RoomY = Y
     placeOgre(Ogre1)
@@ -58,12 +56,8 @@ RoomX = 1
 RoomY = 1
 music.startMelody(music.builtInMelody(Melodies.Prelude), MelodyOptions.Once)
 Gold = [0, 1, 0, 0, 0, 0, 0, 0, 0]
-let Ogres = [0, 1, 0, 0, 0, 0, 0, 0, 0]
 for (let index = 0; index <= 8; index++) {
     Gold[index] = randint(100, 500)
-}
-for (let index = 0; index <= 8; index++) {
-    Ogres[index] = randint(0, 3)
 }
 NewRoom(2, 2)
 basic.forever(function () {
